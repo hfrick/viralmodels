@@ -1,4 +1,5 @@
 test_that("viraltab() works", {
+  set.seed(1)
   
   library(tidyverse)
   library(baguette)
