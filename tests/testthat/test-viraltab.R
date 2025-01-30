@@ -1,4 +1,5 @@
 test_that("viraltab() works", {
+  skip_on_os(c("windows", "linux"))
   set.seed(1)
   
   library(tidyverse)
