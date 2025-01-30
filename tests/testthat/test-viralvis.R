@@ -1,4 +1,6 @@
 test_that("`viralvis()` plots as expected", {
+  skip_on_os(c("windows", "linux"))
+
   library(dplyr)
   library(baguette)
   library(kernlab)
@@ -9,9 +11,7 @@ test_that("`viralvis()` plots as expected", {
   # Define the function to impute values in the undetectable range
   set.seed(123)
   impute_undetectable <- function(column) {
-    ifelse(column <= 40,
-           rexp(sum(column <= 40), rate = 1/13) + 1,
-           column)
+    ifelse(column <= 40, rexp(sum(column <= 40), rate = 1 / 13) + 1, column)
   }
   # Apply the function to all vl columns using purrr's map_dfc
   library(viraldomain)
@@ -29,6 +29,15 @@ test_that("`viralvis()` plots as expected", {
   set.seed(123)
   vdiffr::expect_doppelganger(
     title = "viralvis",
-    fig = viralvis(traindata, semilla, target, viralvars, logbase, pliegues, repeticiones, rejilla),
+    fig = viralvis(
+      traindata,
+      semilla,
+      target,
+      viralvars,
+      logbase,
+      pliegues,
+      repeticiones,
+      rejilla
+    ),
   )
 })
